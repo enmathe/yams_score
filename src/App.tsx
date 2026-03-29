@@ -1,6 +1,5 @@
 import { useGameState } from './hooks/useGameState';
 import { CHALLENGES } from './logic/constants';
-import { Header } from './components/Header';
 import { ScoreTable } from './components/ScoreTable';
 import { UpperSectionPicker } from './components/UpperSectionPicker';
 import { NumericKeypad } from './components/NumericKeypad';
