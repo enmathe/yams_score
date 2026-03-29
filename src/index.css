@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Bodoni Moda', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Dark Navy theme */
+  --color-navy-dark: #0F1419;
+  --color-navy: #1A1F2E;
+  --color-navy-light: #2A3142;
+  --color-blue-gray: #3D5A80;
+  --color-blue-gray-light: #4A6B94;
+  --color-cream: #F5EDD8;
+  --color-cream-dark: #E8DCC8;
+  --color-white: #FFFFFF;
+  --color-white-muted: #C0C7D4;
+  --color-accent-gold: #D4A574;
+  --color-accent-pool: #5FA3C0;
+  --color-accent-green: #6BB386;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0F1419;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(93,163,192,0.06) 0%, transparent 60%);
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+/* Ink animation for score cells */
+@keyframes ink-in {
+  0% { opacity: 0; transform: scale(0.7) rotate(-3deg); }
+  60% { opacity: 1; transform: scale(1.05) rotate(0.5deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.ink-appear {
+  animation: ink-in 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+/* Scratch X animation */
+@keyframes scratch-in {
+  0% { opacity: 0; transform: scale(0.5) rotate(-15deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.scratch-appear {
+  animation: scratch-in 0.25s ease-out both;
+}
+
+/* Pop animation for celebration */
+@keyframes pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  70% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Fallback emoji animations (offline) */
+@keyframes bounce-emoji {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-20px) scale(1.1); }
+}
+
+@keyframes pop-emoji {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Glow pulse for bonus */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(93,163,192,0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(93,163,192,0.6); }
+}
+
+.bonus-glow {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
