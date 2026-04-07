@@ -65,8 +65,13 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
       let celebration: GameState['celebration'] = null;
 
+      // Check for Super Yams
+      if (action.challenge === 'superYams' && action.value === 100) {
+        celebration = 'superYams';
+      }
+
       // Check for Yams celebration
-      if (action.challenge === 'yams' && action.value === 50) {
+      if (!celebration && action.challenge === 'yams' && action.value === 50) {
         celebration = 'yams';
       }
 
@@ -86,6 +91,12 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         if (newUpperTotal >= BONUS_THRESHOLD) {
           celebration = 'bonus';
         }
+      }
+
+      // Grosse loose — validate challenge set to 0
+      const validateChallenges: string[] = ['full', 'petiteSuite', 'grandeSuite', 'yams', 'superYams'];
+      if (!celebration && validateChallenges.includes(action.challenge) && action.value === 0) {
+        celebration = 'loose';
       }
 
       return {

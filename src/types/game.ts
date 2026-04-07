@@ -1,5 +1,5 @@
 export type UpperChallenge = 'ones' | 'twos' | 'threes' | 'fours' | 'fives' | 'sixes';
-export type LowerChallenge = 'brelan' | 'carre' | 'full' | 'petiteSuite' | 'grandeSuite' | 'yams' | 'chance';
+export type LowerChallenge = 'brelan' | 'carre' | 'full' | 'petiteSuite' | 'grandeSuite' | 'yams' | 'superYams' | 'chance';
 export type Challenge = UpperChallenge | LowerChallenge;
 
 export type InputMode = 'multiples' | 'keypad' | 'validate';
@@ -29,7 +29,7 @@ export interface GameState {
   players: Player[];
   scores: ScoreMap;
   activeInput: ActiveInput | null;
-  celebration: 'yams' | 'bonus' | 'grandeSuite' | 'carre' | null;
+  celebration: 'yams' | 'superYams' | 'bonus' | 'grandeSuite' | 'carre' | 'loose' | null;
 }
 
 export type GameAction =

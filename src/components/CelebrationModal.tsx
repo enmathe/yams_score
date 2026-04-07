@@ -9,35 +9,41 @@ interface Props {
   dispatch: Dispatch<GameAction>;
 }
 
-const CONFIG = {
+const COLORS = ['#fee440', '#f15bb5', '#9b5de5', '#00f5d4', '#00bbf9'];
+
+const CONFIG: Record<NonNullable<GameState['celebration']>, { label: string; fire: () => void }> = {
   yams: {
     label: 'Yams !',
-    emoji: '⭐',
-    color: '#D4A574',
     fire: () => {
-      // Deux cannons latéraux de confettis dorés
-      confetti({ particleCount: 120, spread: 70, origin: { x: 0.2, y: 0.6 }, colors: ['#D4A574', '#E8D5B7', '#F5DEB3', '#FFD700'] });
-      confetti({ particleCount: 120, spread: 70, origin: { x: 0.8, y: 0.6 }, colors: ['#D4A574', '#E8D5B7', '#F5DEB3', '#FFD700'] });
+      confetti({ particleCount: 120, spread: 70, origin: { x: 0.2, y: 0.6 }, colors: COLORS });
+      confetti({ particleCount: 120, spread: 70, origin: { x: 0.8, y: 0.6 }, colors: COLORS });
+    },
+  },
+  superYams: {
+    label: 'SUPER YAMS !!!',
+    fire: () => {
+      const end = Date.now() + 2000;
+      const frame = () => {
+        confetti({ particleCount: 15, angle: 60, spread: 80, origin: { x: 0 }, colors: COLORS });
+        confetti({ particleCount: 15, angle: 120, spread: 80, origin: { x: 1 }, colors: COLORS });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      };
+      frame();
     },
   },
   grandeSuite: {
     label: 'Grande Suite !',
-    emoji: '🎊',
-    color: '#5FA3C0',
     fire: () => {
-      confetti({ particleCount: 80, spread: 90, origin: { x: 0.5, y: 0.5 }, colors: ['#5FA3C0', '#7AAED4', '#B3D9E8', '#ffffff'] });
+      confetti({ particleCount: 80, spread: 90, origin: { x: 0.5, y: 0.5 }, colors: COLORS });
     },
   },
   carre: {
     label: 'Carré !',
-    emoji: '🎲',
-    color: '#6BB386',
     fire: () => {
-      // Rafale rapide style dés
       const end = Date.now() + 800;
       const frame = () => {
-        confetti({ particleCount: 6, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#6BB386', '#8AC6A3', '#A8D9B8'] });
-        confetti({ particleCount: 6, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#6BB386', '#8AC6A3', '#A8D9B8'] });
+        confetti({ particleCount: 6, angle: 60, spread: 55, origin: { x: 0 }, colors: COLORS });
+        confetti({ particleCount: 6, angle: 120, spread: 55, origin: { x: 1 }, colors: COLORS });
         if (Date.now() < end) requestAnimationFrame(frame);
       };
       frame();
@@ -45,10 +51,14 @@ const CONFIG = {
   },
   bonus: {
     label: 'Bonus +35 !',
-    emoji: '🏅',
-    color: '#5FA3C0',
     fire: () => {
-      confetti({ particleCount: 60, spread: 70, origin: { x: 0.5, y: 0.7 }, colors: ['#5FA3C0', '#7AAED4', '#B3D9E8', '#ffffff'] });
+      confetti({ particleCount: 60, spread: 70, origin: { x: 0.5, y: 0.7 }, colors: COLORS });
+    },
+  },
+  loose: {
+    label: 'Grosse Loose 💀',
+    fire: () => {
+      // Silence — no confetti for a fail
     },
   },
 };
@@ -62,48 +72,49 @@ export function CelebrationModal({ type, dispatch }: Props) {
   }, [cfg]);
 
   const dismiss = () => dispatch({ type: 'DISMISS_CELEBRATION' });
-
-  // Show GIF if available, fallback to emoji if loading, error, or no GIF
   const showGif = gifUrl && !isLoading && !error;
+  const isLoose = type === 'loose';
 
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center"
-      style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(6px)' }}
+      style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(6px)' }}
       onClick={dismiss}
     >
       <div
-        className="text-center cursor-pointer"
+        className="text-center cursor-pointer px-6"
         style={{ animation: 'pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both' }}
         onClick={dismiss}
       >
-        {/* GIF or Emoji fallback */}
-        {showGif ? (
+        {showGif && (
           <img
             src={gifUrl}
-            alt="celebration"
+            alt={isLoose ? 'fail' : 'celebration'}
             className="mb-4 mx-auto"
             style={{
-              width: '350px',
-              height: '350px',
+              width: '300px',
+              height: '300px',
               objectFit: 'cover',
               borderRadius: '12px',
-              filter: 'drop-shadow(0 4px 16px rgba(0,0,0,0.3))',
+              filter: isLoose
+                ? 'drop-shadow(0 4px 24px rgba(241,91,181,0.5))'
+                : 'drop-shadow(0 4px 16px rgba(0,0,0,0.3))',
             }}
           />
-        ) : (
-          <div
-            className="text-8xl mb-4 leading-none"
-            style={{
-              filter: 'drop-shadow(0 4px 16px rgba(0,0,0,0.3))',
-              animation: 'bounce-emoji 0.5s ease infinite alternate',
-            }}
-          >
-            {cfg.emoji}
-          </div>
         )}
 
-        <p className="mt-3 text-xs text-white/40" style={{ fontFamily: 'var(--font-mono)' }}>
+        <p
+          className="text-lg font-semibold mb-4"
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontStyle: 'italic',
+            color: isLoose ? 'var(--deep-pink)' : 'var(--banana-cream)',
+          }}
+        >
+          {cfg.label}
+        </p>
+
+        <p className="text-xs" style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white-muted)' }}>
           Appuyez pour continuer
         </p>
       </div>

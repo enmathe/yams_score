@@ -18,7 +18,7 @@ export function isUpperComplete(scores: Record<Challenge, number | null>): boole
 }
 
 export function getLowerTotal(scores: Record<Challenge, number | null>): number {
-  const lowerKeys: Challenge[] = ['brelan', 'carre', 'full', 'petiteSuite', 'grandeSuite', 'yams', 'chance'];
+  const lowerKeys: Challenge[] = ['brelan', 'carre', 'full', 'petiteSuite', 'grandeSuite', 'yams', 'superYams', 'chance'];
   return lowerKeys.reduce((sum, key) => sum + (scores[key] ?? 0), 0);
 }
 
@@ -27,5 +27,5 @@ export function getGrandTotal(scores: Record<Challenge, number | null>): number 
 }
 
 export function getMultiplesOptions(faceValue: number): number[] {
-  return Array.from({ length: 7 }, (_, i) => faceValue * i);
+  return Array.from({ length: 6 }, (_, i) => faceValue * i);
 }

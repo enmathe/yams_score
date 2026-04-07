@@ -80,7 +80,7 @@ export function NumericKeypad({ playerId, challenge, dispatch }: Props) {
           <button
             onClick={handleConfirm}
             className="rounded-2xl py-3.5 text-sm font-black uppercase tracking-widest active:scale-95 transition-all"
-            style={{ background: 'var(--color-cream)', color: 'var(--color-navy-dark)', fontFamily: 'var(--font-mono)' }}
+            style={{ background: 'var(--banana-cream)', color: 'var(--color-navy-dark)', fontFamily: 'var(--font-mono)' }}
           >
             OK
           </button>

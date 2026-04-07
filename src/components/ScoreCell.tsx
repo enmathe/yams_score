@@ -13,7 +13,6 @@ export function ScoreCell({ playerId, challenge, value, isActive, dispatch }: Pr
   const cellRef = useRef<HTMLTableCellElement>(null);
 
   const handleClick = () => {
-    if (value !== null) return;
     dispatch({ type: 'OPEN_INPUT', playerId, challenge });
   };
 
@@ -22,13 +21,14 @@ export function ScoreCell({ playerId, challenge, value, isActive, dispatch }: Pr
     return (
       <td
         ref={cellRef}
-        className="px-2 py-2 text-center border-b"
-        style={{ borderColor: 'rgba(255,255,255,0.15)' }}
+        onClick={handleClick}
+        className="px-2 py-2 text-center border-b cursor-pointer transition-colors"
+        style={{ borderColor: 'rgba(255,255,255,0.08)' }}
       >
         {isZero ? (
           <span
             className="scratch-appear inline-block text-lg leading-none"
-            style={{ color: 'var(--color-cream)', fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 300 }}
+            style={{ color: 'var(--deep-pink)', fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 300 }}
           >
             —
           </span>
@@ -50,15 +50,15 @@ export function ScoreCell({ playerId, challenge, value, isActive, dispatch }: Pr
       onClick={handleClick}
       className="px-2 py-2 text-center border-b cursor-pointer transition-colors"
       style={{
-        borderColor: 'rgba(255,255,255,0.15)',
-        background: isActive ? 'rgba(93, 163, 192, 0.15)' : 'transparent',
+        borderColor: 'rgba(255,255,255,0.08)',
+        background: isActive ? 'rgba(155,93,229,0.12)' : 'transparent',
       }}
     >
       <span
         className="inline-block rounded border border-dashed w-8 h-6 leading-6 text-xs transition-colors"
         style={{
-          borderColor: isActive ? 'var(--color-accent-pool)' : 'rgba(255,255,255,0.1)',
-          color: isActive ? 'var(--color-accent-pool)' : 'transparent',
+          borderColor: isActive ? 'var(--lavender-purple)' : 'rgba(255,255,255,0.1)',
+          color: isActive ? 'var(--lavender-purple)' : 'transparent',
         }}
       >
         ·

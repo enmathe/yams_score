@@ -15,6 +15,7 @@ export const CHALLENGES: ChallengeDefinition[] = [
   { key: 'petiteSuite', label: 'Petite Suite', inputMode: 'validate', fixedScore: 30, section: 'lower' },
   { key: 'grandeSuite', label: 'Grande Suite', inputMode: 'validate', fixedScore: 40, section: 'lower' },
   { key: 'yams', label: 'Yams', inputMode: 'validate', fixedScore: 50, section: 'lower' },
+  { key: 'superYams', label: 'Super Yams', inputMode: 'validate', fixedScore: 100, section: 'lower' },
   { key: 'chance', label: 'Chance', inputMode: 'keypad', section: 'lower' },
 ];
 

@@ -5,23 +5,23 @@ import { getUpperTotal, getBonus, getLowerTotal, getGrandTotal, isUpperComplete 
 import { ScoreCell } from './ScoreCell';
 import { PlayerHeader } from './PlayerHeader';
 import { AddPlayerButton } from './AddPlayerButton';
+import { DieFace } from './DieFace';
 
 interface Props {
   state: GameState;
   dispatch: Dispatch<GameAction>;
 }
 
-const UPPER_ICONS = ['As', 'II', 'III', 'IV', 'V', 'VI'];
-const LOWER_META: Record<string, { icon: string; pts?: number }> = {
-  brelan: { icon: '≡' },
-  carre: { icon: '⊞' },
-  full: { icon: '⊟', pts: 25 },
-  petiteSuite: { icon: '▲', pts: 30 },
-  grandeSuite: { icon: '▲▲', pts: 40 },
-  yams: { icon: '★', pts: 50 },
-  chance: { icon: '∿' },
+const LOWER_META: Record<string, { pts?: number }> = {
+  brelan: {},
+  carre: {},
+  full: { pts: 25 },
+  petiteSuite: { pts: 30 },
+  grandeSuite: { pts: 40 },
+  yams: { pts: 50 },
+  superYams: { pts: 100 },
+  chance: {},
 };
-
 
 export function ScoreTable({ state, dispatch }: Props) {
   const { players, scores, activeInput } = state;
@@ -51,14 +51,14 @@ export function ScoreTable({ state, dispatch }: Props) {
   return (
     <div
       style={{
-        background: 'rgba(26, 31, 46, 0.95)',
+        background: 'rgba(20, 17, 43, 0.95)',
         boxShadow: '0 4px 24px rgba(0,0,0,0.5)',
       }}
     >
       <table className="w-full border-collapse">
         <thead>
           {/* Top bar: title + nouveau */}
-          <tr style={{ background: 'var(--color-navy-light)', borderBottom: '1px solid rgba(255,255,255,0.15)' }}>
+          <tr style={{ background: 'var(--color-navy-light)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
             <th
               className="sticky left-0 z-10 px-3 py-2 text-left"
               style={{ background: 'var(--color-navy-light)' }}
@@ -75,7 +75,7 @@ export function ScoreTable({ state, dispatch }: Props) {
               <button
                 onClick={handleNewGame}
                 className="text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-full border active:scale-95 transition-transform"
-                style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-navy-dark)', borderColor: 'var(--color-cream)', background: 'var(--color-cream)' }}
+                style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-navy-dark)', borderColor: 'var(--banana-cream)', background: 'var(--banana-cream)' }}
               >
                 Nouveau
               </button>
@@ -83,7 +83,7 @@ export function ScoreTable({ state, dispatch }: Props) {
           </tr>
 
           {/* Player headers */}
-          <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }}>
+          <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
             <th
               className="sticky left-0 z-10 px-3 py-1.5 text-left"
               style={{ background: 'var(--color-navy-light)', minWidth: 100 }}
@@ -108,18 +108,10 @@ export function ScoreTable({ state, dispatch }: Props) {
             <tr key={c.key} style={{ background: i % 2 === 0 ? 'var(--color-navy)' : 'var(--color-navy-light)' }}>
               <td
                 className="sticky left-0 z-10 px-3 py-1.5"
-                style={{ background: 'inherit', minWidth: 100, borderBottom: '1px solid rgba(255,255,255,0.15)' }}
+                style={{ background: 'inherit', minWidth: 100, borderBottom: '1px solid rgba(255,255,255,0.08)' }}
               >
                 <div className="flex items-center gap-2">
-                  <span
-                    className="text-[9px] w-5 h-5 flex items-center justify-center rounded border shrink-0"
-                    style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-accent-gold)', borderColor: 'var(--color-accent-gold)' }}
-                  >
-                    {UPPER_ICONS[i]}
-                  </span>
-                  <span className="text-sm font-semibold" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-white)' }}>
-                    {c.faceValue}
-                  </span>
+                  <DieFace value={c.faceValue as 1|2|3|4|5|6} size={22} color="var(--banana-cream)" />
                 </div>
               </td>
               {players.map((p) => (
@@ -132,34 +124,34 @@ export function ScoreTable({ state, dispatch }: Props) {
                   dispatch={dispatch}
                 />
               ))}
-              <td style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }} />
+              <td style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }} />
             </tr>
           ))}
 
           {/* Sous-total haut */}
           <tr style={{ background: 'var(--color-blue-gray)' }}>
-            <td className="sticky left-0 z-10 px-3 py-1.5" style={{ background: 'var(--color-blue-gray)', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
+            <td className="sticky left-0 z-10 px-3 py-1.5" style={{ background: 'var(--color-blue-gray)', borderBottom: '1px solid rgba(255,255,255,0.15)' }}>
               <span className="text-[9px] uppercase tracking-wider" style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white)' }}>
                 Sous-total
               </span>
             </td>
             {players.map((p) => (
-              <td key={p.id} className="px-2 py-1.5 text-center" style={{ borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
+              <td key={p.id} className="px-2 py-1.5 text-center" style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }}>
                 <span className="text-xs font-bold" style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white)' }}>
                   {getUpperTotal(scores[p.id])}
                 </span>
               </td>
             ))}
-            <td style={{ borderBottom: '1px solid rgba(255,255,255,0.2)' }} />
+            <td style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }} />
           </tr>
 
           {/* Bonus */}
           <tr style={{ background: 'var(--color-navy)' }}>
             <td
               className="sticky left-0 z-10 px-3 py-1.5"
-              style={{ background: 'var(--color-navy)', borderBottom: '1px solid rgba(255,255,255,0.15)' }}
+              style={{ background: 'var(--color-navy)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}
             >
-              <span className="text-[9px] uppercase tracking-wider" style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-accent-pool)' }}>
+              <span className="text-[9px] uppercase tracking-wider" style={{ fontFamily: 'var(--font-mono)', color: 'var(--deep-sky-blue)' }}>
                 Bonus <span style={{ color: 'var(--color-white-muted)' }}>≥63</span>
               </span>
             </td>
@@ -168,47 +160,39 @@ export function ScoreTable({ state, dispatch }: Props) {
               const complete = isUpperComplete(scores[p.id]);
               const remaining = Math.max(0, 63 - getUpperTotal(scores[p.id]));
               return (
-                <td key={p.id} className="px-2 py-1.5 text-center" style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }}>
+                <td key={p.id} className="px-2 py-1.5 text-center" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                   {bonus > 0 ? (
-                    <span className="bonus-glow inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-black text-white" style={{ background: 'var(--color-accent-pool)', fontFamily: 'var(--font-mono)' }}>
+                    <span className="bonus-glow inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-black" style={{ background: 'var(--aquamarine)', color: 'var(--color-navy-dark)', fontFamily: 'var(--font-mono)' }}>
                       +35
                     </span>
                   ) : complete ? (
                     <span className="text-xs" style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white-muted)' }}>0</span>
                   ) : (
-                    <span className="text-[10px]" style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-accent-pool)' }}>−{remaining}</span>
+                    <span className="text-[10px]" style={{ fontFamily: 'var(--font-mono)', color: 'var(--deep-sky-blue)' }}>−{remaining}</span>
                   )}
                 </td>
               );
             })}
-            <td style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }} />
+            <td style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }} />
           </tr>
 
           {lowerChallenges.map((c, i) => {
-            const meta = LOWER_META[c.key] ?? { icon: '·' };
+            const meta = LOWER_META[c.key] ?? {};
             return (
               <tr key={c.key} style={{ background: i % 2 === 0 ? 'var(--color-navy)' : 'var(--color-navy-light)' }}>
                 <td
                   className="sticky left-0 z-10 px-3 py-1.5"
-                  style={{ background: 'inherit', minWidth: 100, borderBottom: '1px solid rgba(255,255,255,0.15)' }}
+                  style={{ background: 'inherit', minWidth: 100, borderBottom: '1px solid rgba(255,255,255,0.08)' }}
                 >
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="text-[9px] w-5 h-5 flex items-center justify-center rounded border shrink-0"
-                      style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-accent-gold)', borderColor: 'var(--color-accent-gold)' }}
-                    >
-                      {meta.icon}
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-sm font-semibold" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-white)' }}>
+                      {c.label}
                     </span>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-sm font-semibold" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-white)' }}>
-                        {c.label}
+                    {meta.pts && (
+                      <span className="text-[9px]" style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white-muted)' }}>
+                        {meta.pts}
                       </span>
-                      {meta.pts && (
-                        <span className="text-[9px]" style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white-muted)' }}>
-                          {meta.pts}
-                        </span>
-                      )}
-                    </div>
+                    )}
                   </div>
                 </td>
                 {players.map((p) => (
@@ -221,33 +205,33 @@ export function ScoreTable({ state, dispatch }: Props) {
                     dispatch={dispatch}
                   />
                 ))}
-                <td style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }} />
+                <td style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }} />
               </tr>
             );
           })}
 
           {/* Sous-total bas */}
           <tr style={{ background: 'var(--color-blue-gray)' }}>
-            <td className="sticky left-0 z-10 px-3 py-1.5" style={{ background: 'var(--color-blue-gray)', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
+            <td className="sticky left-0 z-10 px-3 py-1.5" style={{ background: 'var(--color-blue-gray)', borderBottom: '1px solid rgba(255,255,255,0.15)' }}>
               <span className="text-[9px] uppercase tracking-wider" style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white)' }}>
                 Sous-total
               </span>
             </td>
             {players.map((p) => (
-              <td key={p.id} className="px-2 py-1.5 text-center" style={{ borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
+              <td key={p.id} className="px-2 py-1.5 text-center" style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }}>
                 <span className="text-xs font-bold" style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white)' }}>
                   {getLowerTotal(scores[p.id])}
                 </span>
               </td>
             ))}
-            <td style={{ borderBottom: '1px solid rgba(255,255,255,0.2)' }} />
+            <td style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }} />
           </tr>
 
           {/* Grand Total */}
           <tr style={{ background: 'var(--color-blue-gray)' }}>
             <td
               className="sticky left-0 z-10 px-3 py-3"
-              style={{ background: 'var(--color-blue-gray)', borderTop: '1.5px solid var(--color-accent-gold)' }}
+              style={{ background: 'var(--color-blue-gray)', borderTop: '1.5px solid var(--banana-cream)' }}
             >
               <span className="text-xs font-black uppercase tracking-[0.18em] text-white" style={{ fontFamily: 'var(--font-mono)' }}>
                 Total
@@ -257,14 +241,14 @@ export function ScoreTable({ state, dispatch }: Props) {
               <td
                 key={p.id}
                 className="px-2 py-3 text-center"
-                style={{ background: 'var(--color-blue-gray)', borderTop: '1.5px solid var(--color-accent-gold)' }}
+                style={{ background: 'var(--color-blue-gray)', borderTop: '1.5px solid var(--banana-cream)' }}
               >
                 <span className="text-lg font-black text-white" style={{ fontFamily: 'var(--font-mono)' }}>
                   {getGrandTotal(scores[p.id])}
                 </span>
               </td>
             ))}
-            <td style={{ background: 'var(--color-blue-gray)', borderTop: '1.5px solid var(--color-accent-gold)' }} />
+            <td style={{ background: 'var(--color-blue-gray)', borderTop: '1.5px solid var(--banana-cream)' }} />
           </tr>
         </tbody>
       </table>
