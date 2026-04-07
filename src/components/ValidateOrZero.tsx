@@ -14,6 +14,7 @@ const META: Record<string, { symbol: string; sub: string }> = {
   'Petite Suite': { symbol: '▲', sub: '4 dés consécutifs' },
   'Grande Suite': { symbol: '▲▲', sub: '5 dés consécutifs' },
   Yams: { symbol: '★', sub: '5 dés identiques' },
+  'Super Yams': { symbol: '★★', sub: '5 dés identiques — 100 pts' },
 };
 
 export function ValidateOrZero({ playerId, challenge, fixedScore, label, dispatch }: Props) {
@@ -70,7 +71,7 @@ export function ValidateOrZero({ playerId, challenge, fixedScore, label, dispatc
             className="flex-[2] rounded-2xl py-4 text-sm font-black uppercase tracking-widest active:scale-95 transition-all"
             style={{
               fontFamily: 'var(--font-mono)',
-              background: 'var(--color-cream)',
+              background: 'var(--banana-cream)',
               color: 'var(--color-navy-dark)',
               boxShadow: '0 8px 20px rgba(0,0,0,0.3)',
             }}

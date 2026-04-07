@@ -8,7 +8,7 @@ interface Props {
 }
 
 const PLAYER_ACCENTS: string[] = [
-  '#5FA3C0', '#D4A574', '#6BB386', '#C49A8A', '#7AAED4', '#D4B888',
+  '#9b5de5', '#f15bb5', '#fee440', '#00bbf9', '#00f5d4',
 ];
 const playerColorMap = new Map<string, number>();
 let nextIndex = 0;

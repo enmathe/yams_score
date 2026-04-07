@@ -4,19 +4,27 @@
   --font-display: 'Bodoni Moda', Georgia, serif;
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
-  /* Dark Navy theme */
-  --color-navy-dark: #0F1419;
-  --color-navy: #1A1F2E;
-  --color-navy-light: #2A3142;
-  --color-blue-gray: #3D5A80;
-  --color-blue-gray-light: #4A6B94;
-  --color-cream: #F5EDD8;
-  --color-cream-dark: #E8DCC8;
-  --color-white: #FFFFFF;
-  --color-white-muted: #C0C7D4;
-  --color-accent-gold: #D4A574;
-  --color-accent-pool: #5FA3C0;
-  --color-accent-green: #6BB386;
+  /* Dark purple base */
+  --color-navy-dark: #0c0a1e;
+  --color-navy: #14112b;
+  --color-navy-light: #1f1a3d;
+  --color-blue-gray: #2a2450;
+  --color-white: #ffffff;
+  --color-white-muted: #9b9ec2;
+
+  /* Vibrant palette */
+  --lavender-purple: #9b5de5;
+  --deep-pink: #f15bb5;
+  --banana-cream: #fee440;
+  --deep-sky-blue: #00bbf9;
+  --aquamarine: #00f5d4;
+
+  /* Semantic aliases for existing usage */
+  --color-cream: #fee440;
+  --color-cream-dark: #e6cf2e;
+  --color-accent-gold: #fee440;
+  --color-accent-pool: #00bbf9;
+  --color-accent-green: #00f5d4;
 }
 
 body {
@@ -25,9 +33,7 @@ body {
   min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0F1419;
-  background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(93,163,192,0.06) 0%, transparent 60%);
+  background-color: #0c0a1e;
 }
 
 #root {
@@ -76,8 +82,8 @@ body {
 
 /* Glow pulse for bonus */
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(93,163,192,0.4); }
-  50% { box-shadow: 0 0 20px 4px rgba(93,163,192,0.6); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,245,212,0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(0,245,212,0.6); }
 }
 
 .bonus-glow {

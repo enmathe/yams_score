@@ -8,8 +8,8 @@ export function AddPlayerButton({ dispatch, playerCount }: { dispatch: Dispatch<
       className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold active:scale-95 transition-transform"
       style={{
         fontFamily: 'var(--font-mono)',
-        border: '1.5px dashed var(--color-cream)',
-        color: 'var(--color-cream)',
+        border: '1.5px dashed var(--aquamarine)',
+        color: 'var(--aquamarine)',
         background: 'transparent',
       }}
       title="Ajouter un joueur"
