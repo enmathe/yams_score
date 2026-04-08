@@ -1,7 +1,7 @@
 import type { Dispatch } from 'react';
 import type { GameState, GameAction } from '../types/game';
 import { CHALLENGES } from '../logic/constants';
-import { getUpperTotal, getBonus, getLowerTotal, getGrandTotal, isUpperComplete } from '../logic/scoring';
+import { getUpperTotal, getBonus, getGrandTotal, isUpperComplete } from '../logic/scoring';
 import { ScoreCell } from './ScoreCell';
 import { PlayerHeader } from './PlayerHeader';
 import { AddPlayerButton } from './AddPlayerButton';
