@@ -4,23 +4,13 @@ import type { GameAction } from '../types/game';
 interface Props {
   playerId: string;
   name: string;
+  accent: string;
   dispatch: Dispatch<GameAction>;
 }
 
-const PLAYER_ACCENTS: string[] = [
-  '#9b5de5', '#f15bb5', '#fee440', '#00bbf9', '#00f5d4',
-];
-const playerColorMap = new Map<string, number>();
-let nextIndex = 0;
-function getAccent(id: string): string {
-  if (!playerColorMap.has(id)) { playerColorMap.set(id, nextIndex++ % PLAYER_ACCENTS.length); }
-  return PLAYER_ACCENTS[playerColorMap.get(id)!];
-}
-
-export function PlayerHeader({ playerId, name, dispatch }: Props) {
+export function PlayerHeader({ playerId, name, accent, dispatch }: Props) {
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(name);
-  const accent = getAccent(playerId);
 
   const save = () => {
     const trimmed = value.trim();
@@ -36,35 +26,43 @@ export function PlayerHeader({ playerId, name, dispatch }: Props) {
         onChange={(e) => setValue(e.target.value)}
         onBlur={save}
         onKeyDown={(e) => e.key === 'Enter' && save()}
-        className="w-full min-w-0 rounded border-0 px-1 py-0.5 text-center text-xs font-semibold outline-none"
-        style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white)', background: 'var(--color-navy-light)', boxShadow: `0 0 0 1px ${accent}` }}
+        className="w-full min-w-0 rounded border-0 px-1 py-0.5 text-center text-[9px] font-semibold outline-none"
+        style={{
+          fontFamily: 'var(--font-mono)',
+          color: 'var(--color-white)',
+          background: 'var(--color-navy-light)',
+          boxShadow: `0 0 0 1px ${accent}`,
+          letterSpacing: '0.08em',
+        }}
       />
     );
   }
 
-  const initials = name.slice(0, 2).toUpperCase();
-
   return (
-    <div className="flex flex-col items-center gap-0.5 py-1">
+    <div className="flex flex-col items-center gap-1.5">
       <div
-        onClick={() => { setValue(name); setEditing(true); }}
-        className="flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold text-white cursor-pointer active:scale-95 transition-transform"
-        style={{ background: accent, fontFamily: 'var(--font-mono)' }}
-      >
-        {initials}
-      </div>
+        style={{ width: 6, height: 6, borderRadius: '50%', background: accent, flexShrink: 0 }}
+      />
       <div className="flex items-center gap-0.5">
         <span
           onClick={() => { setValue(name); setEditing(true); }}
-          className="cursor-pointer text-[10px] font-semibold truncate max-w-[60px]"
-          style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white-muted)' }}
+          className="cursor-pointer truncate max-w-[60px]"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 9,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            color: 'var(--color-white-muted)',
+          }}
         >
           {name}
         </span>
         <button
-          onClick={() => { if (window.confirm(`Supprimer ${name} ?`)) dispatch({ type: 'REMOVE_PLAYER', playerId }); }}
-          className="text-[8px] shrink-0"
-          style={{ color: 'rgba(255,255,255,0.3)' }}
+          onClick={() => {
+            if (window.confirm(`Supprimer ${name} ?`))
+              dispatch({ type: 'REMOVE_PLAYER', playerId });
+          }}
+          style={{ fontSize: 7, color: 'rgba(255,255,255,0.2)', lineHeight: 1 }}
         >
           ✕
         </button>

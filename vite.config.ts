@@ -13,8 +13,8 @@ export default defineConfig({
         name: 'Yams Score',
         short_name: 'Yams',
         description: 'Tableau de score pour le jeu de Yams',
-        theme_color: '#87CEEB',
-        background_color: '#87CEEB',
+        theme_color: '#1D2B1A',
+        background_color: '#0F1A0D',
         display: 'standalone',
         icons: [
           { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
