@@ -12,12 +12,12 @@ interface Props {
 
 export function NumericKeypad({ playerId, challenge, challengeLabel, playerName, currentValue, dispatch }: Props) {
   const [input, setInput] = useState(currentValue === null ? '' : String(currentValue));
-  const [replaceOnNextDigit, setReplaceOnNextDigit] = useState(currentValue !== null);
+  const initialValue = currentValue === null ? '' : String(currentValue);
+  const hasChanged = input !== initialValue;
 
   const handleDigit = (d: number) => {
-    const next = replaceOnNextDigit ? String(d) : input + d;
+    const next = input === '0' ? String(d) : input + d;
     if (Number(next) <= 30) setInput(next);
-    setReplaceOnNextDigit(false);
   };
 
   const handleConfirm = () => {
@@ -25,12 +25,6 @@ export function NumericKeypad({ playerId, challenge, challengeLabel, playerName,
   };
 
   const handleBackspace = () => {
-    if (replaceOnNextDigit) {
-      setInput('');
-      setReplaceOnNextDigit(false);
-      return;
-    }
-
     setInput(input.slice(0, -1));
   };
 
@@ -64,9 +58,9 @@ export function NumericKeypad({ playerId, challenge, challengeLabel, playerName,
           >
             {currentValue === null
               ? 'Case vide'
-              : replaceOnNextDigit
-                ? `Valeur actuelle : ${currentValue} · touchez un chiffre pour remplacer`
-                : `Modification en cours : ${displayVal}`}
+              : hasChanged
+                ? `Modification en cours : ${displayVal}`
+                : `Valeur actuelle : ${currentValue} · utilisez ⌫ pour corriger`}
           </p>
         </div>
         <div
