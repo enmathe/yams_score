@@ -8,10 +8,16 @@ import { CelebrationModal } from './components/CelebrationModal';
 
 export default function App() {
   const [state, dispatch] = useGameState();
-  const { activeInput, celebration } = state;
+  const { activeInput, celebration, players, scores } = state;
 
   const activeDef = activeInput
     ? CHALLENGES.find((c) => c.key === activeInput.challenge)
+    : null;
+  const activePlayer = activeInput
+    ? players.find((player) => player.id === activeInput.playerId) ?? null
+    : null;
+  const activeValue = activeInput
+    ? scores[activeInput.playerId]?.[activeInput.challenge] ?? null
     : null;
 
   return (
@@ -25,6 +31,9 @@ export default function App() {
           playerId={activeInput.playerId}
           challenge={activeInput.challenge}
           faceValue={activeDef.faceValue}
+          challengeLabel={activeDef.label}
+          playerName={activePlayer?.name ?? ''}
+          currentValue={activeValue}
           dispatch={dispatch}
         />
       )}
@@ -32,6 +41,9 @@ export default function App() {
         <NumericKeypad
           playerId={activeInput.playerId}
           challenge={activeInput.challenge}
+          challengeLabel={activeDef.label}
+          playerName={activePlayer?.name ?? ''}
+          currentValue={activeValue}
           dispatch={dispatch}
         />
       )}
@@ -41,6 +53,8 @@ export default function App() {
           challenge={activeInput.challenge}
           fixedScore={activeDef.fixedScore}
           label={activeDef.label}
+          playerName={activePlayer?.name ?? ''}
+          currentValue={activeValue}
           dispatch={dispatch}
         />
       )}

@@ -1,0 +1,241 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+2 0 obj
+<< /Length 2798 >>
+stream
+BT
+/F1 9 Tf
+1 0 0 1 36 756 Tm
+11 TL
+(Yams UX diff snapshot) Tj
+(Generated 2026-04-16 08:27 CEST) T* Tj
+() T* Tj
+(diff --git a/src/App.tsx b/src/App.tsx) T* Tj
+(index a9c3f2c..9eb861a 100644) T* Tj
+(--- a/src/App.tsx) T* Tj
+(+++ b/src/App.tsx) T* Tj
+(@@ -8,11 +8,17 @@ import { CelebrationModal } from './components/CelebrationModal';) T* Tj
+( ) T* Tj
+( export default function App\(\) {) T* Tj
+(   const [state, dispatch] = useGameState\(\);) T* Tj
+(-  const { activeInput, celebration } = state;) T* Tj
+(+  const { activeInput, celebration, players, scores } = state;) T* Tj
+( ) T* Tj
+(   const activeDef = activeInput) T* Tj
+(     ? CHALLENGES.find\(\(c\) => c.key === activeInput.challenge\)) T* Tj
+(     : null;) T* Tj
+(+  const activePlayer = activeInput) T* Tj
+(+    ? players.find\(\(player\) => player.id === activeInput.playerId\) ?? null) T* Tj
+(+    : null;) T* Tj
+(+  const activeValue = activeInput) T* Tj
+(+    ? scores[activeInput.playerId]?.[activeInput.challenge] ?? null) T* Tj
+(+    : null;) T* Tj
+( ) T* Tj
+(   return \() T* Tj
+(     <div>) T* Tj
+(@@ -25,6 +31,9 @@ export default function App\(\) {) T* Tj
+(           playerId={activeInput.playerId}) T* Tj
+(           challenge={activeInput.challenge}) T* Tj
+(           faceValue={activeDef.faceValue}) T* Tj
+(+          challengeLabel={activeDef.label}) T* Tj
+(+          playerName={activePlayer?.name ?? ''}) T* Tj
+(+          currentValue={activeValue}) T* Tj
+(           dispatch={dispatch}) T* Tj
+(         />) T* Tj
+(       \)}) T* Tj
+(@@ -32,6 +41,9 @@ export default function App\(\) {) T* Tj
+(         <NumericKeypad) T* Tj
+(           playerId={activeInput.playerId}) T* Tj
+(           challenge={activeInput.challenge}) T* Tj
+(+          challengeLabel={activeDef.label}) T* Tj
+(+          playerName={activePlayer?.name ?? ''}) T* Tj
+(+          currentValue={activeValue}) T* Tj
+(           dispatch={dispatch}) T* Tj
+(         />) T* Tj
+(       \)}) T* Tj
+(@@ -41,6 +53,8 @@ export default function App\(\) {) T* Tj
+(           challenge={activeInput.challenge}) T* Tj
+(           fixedScore={activeDef.fixedScore}) T* Tj
+(           label={activeDef.label}) T* Tj
+(+          playerName={activePlayer?.name ?? ''}) T* Tj
+(+          currentValue={activeValue}) T* Tj
+(           dispatch={dispatch}) T* Tj
+(         />) T* Tj
+(       \)}) T* Tj
+(diff --git a/src/components/NumericKeypad.tsx b/src/components/NumericKeypad.tsx) T* Tj
+(index eb30f0a..44c68a6 100644) T* Tj
+(--- a/src/components/NumericKeypad.tsx) T* Tj
+(+++ b/src/components/NumericKeypad.tsx) T* Tj
+(@@ -4,10 +4,13 @@ import type { GameAction, Challenge } from '../types/game';) T* Tj
+( interface Props {) T* Tj
+(   playerId: string;) T* Tj
+(   challenge: Challenge;) T* Tj
+(+  challengeLabel: string;) T* Tj
+(+  playerName: string;) T* Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Length 3626 >>
+stream
+BT
+/F1 9 Tf
+1 0 0 1 36 756 Tm
+11 TL
+(+  currentValue: number | null;) Tj
+(   dispatch: Dispatch<GameAction>;) T* Tj
+( }) T* Tj
+( ) T* Tj
+(-export function NumericKeypad\({ playerId, challenge, dispatch }: Props\) {) T* Tj
+(+export function NumericKeypad\({ playerId, challenge, challengeLabel, playerName, currentValue, dispatch }: Props\) {) T* Tj
+(   const [input, setInput] = useState\(''\);) T* Tj
+( ) T* Tj
+(   const handleDigit = \(d: number\) => {) T* Tj
+(@@ -36,6 +39,20 @@ export function NumericKeypad\({ playerId, challenge, dispatch }: Props\) {) T* Tj
+(         <div className="mx-auto mb-5 h-[3px] w-10 rounded-full" style={{ background: 'rgba\(255,255,255,0.2\)' }} />) T* Tj
+( ) T* Tj
+(         {/* Display */}) T* Tj
+(+        <div className="mb-3">) T* Tj
+(+          <p) T* Tj
+(+            className="text-[10px] uppercase tracking-[0.18em]") T* Tj
+(+            style={{ fontFamily: 'var\(--font-mono\)', color: 'rgba\(147,197,253,0.7\)' }}) T* Tj
+(+          >) T* Tj
+(+            {playerName} ∑ {challengeLabel}) T* Tj
+(+          </p>) T* Tj
+(+          <p) T* Tj
+(+            className="mt-1 text-xs") T* Tj
+(+            style={{ fontFamily: 'var\(--font-mono\)', color: 'var\(--color-white-muted\)' }}) T* Tj
+(+          >) T* Tj
+(+            {currentValue === null ? 'Case vide' : `Valeur actuelle : ${currentValue}`}) T* Tj
+(+          </p>) T* Tj
+(+        </div>) T* Tj
+(         <div) T* Tj
+(           className="mb-5 rounded-2xl py-4 px-6 flex items-end justify-between") T* Tj
+(           style={{ background: 'var\(--color-navy\)', border: '1px solid rgba\(255,255,255,0.2\)' }}) T* Tj
+(diff --git a/src/components/UpperSectionPicker.tsx b/src/components/UpperSectionPicker.tsx) T* Tj
+(index 98b4658..f203b61 100644) T* Tj
+(--- a/src/components/UpperSectionPicker.tsx) T* Tj
+(+++ b/src/components/UpperSectionPicker.tsx) T* Tj
+(@@ -7,10 +7,13 @@ interface Props {) T* Tj
+(   playerId: string;) T* Tj
+(   challenge: Challenge;) T* Tj
+(   faceValue: number;) T* Tj
+(+  challengeLabel: string;) T* Tj
+(+  playerName: string;) T* Tj
+(+  currentValue: number | null;) T* Tj
+(   dispatch: Dispatch<GameAction>;) T* Tj
+( }) T* Tj
+( ) T* Tj
+(-export function UpperSectionPicker\({ playerId, challenge, faceValue, dispatch }: Props\) {) T* Tj
+(+export function UpperSectionPicker\({ playerId, challenge, faceValue, challengeLabel, playerName, currentValue, dispatch }: Props\) {) T* Tj
+(   const options = getMultiplesOptions\(faceValue\);) T* Tj
+( ) T* Tj
+(   return \() T* Tj
+(@@ -31,11 +34,17 @@ export function UpperSectionPicker\({ playerId, challenge, faceValue, dispatch }:) T* Tj
+(         <div className="mb-6 flex items-center gap-4">) T* Tj
+(           <DieFace value={faceValue as 1|2|3|4|5|6} size={52} color="var\(--banana-cream\)" />) T* Tj
+(           <div>) T* Tj
+(+            <p) T* Tj
+(+              className="mb-1 text-[10px] uppercase tracking-[0.18em]") T* Tj
+(+              style={{ fontFamily: 'var\(--font-mono\)', color: 'rgba\(147,197,253,0.7\)' }}) T* Tj
+(+            >) T* Tj
+(+              {playerName} ∑ {challengeLabel}) T* Tj
+(+            </p>) T* Tj
+(             <p className="text-base font-semibold" style={{ fontFamily: 'var\(--font-display\)', color: 'var\(--color-white\)' }}>) T* Tj
+(               Combien de {faceValue} ?) T* Tj
+(             </p>) T* Tj
+(             <p className="text-xs" style={{ fontFamily: 'var\(--font-mono\)', color: 'var\(--color-white-muted\)' }}>) T* Tj
+(-              SÈlectionner votre score) T* Tj
+(+              {currentValue === null ? 'SÈlectionner votre score' : `Valeur actuelle : ${currentValue}`}) T* Tj
+ET
+endstream
+endobj
+4 0 obj
+<< /Length 2208 >>
+stream
+BT
+/F1 9 Tf
+1 0 0 1 36 756 Tm
+11 TL
+(             </p>) Tj
+(           </div>) T* Tj
+(         </div>) T* Tj
+(diff --git a/src/components/ValidateOrZero.tsx b/src/components/ValidateOrZero.tsx) T* Tj
+(index 8c90f3b..d594723 100644) T* Tj
+(--- a/src/components/ValidateOrZero.tsx) T* Tj
+(+++ b/src/components/ValidateOrZero.tsx) T* Tj
+(@@ -6,6 +6,8 @@ interface Props {) T* Tj
+(   challenge: Challenge;) T* Tj
+(   fixedScore: number;) T* Tj
+(   label: string;) T* Tj
+(+  playerName: string;) T* Tj
+(+  currentValue: number | null;) T* Tj
+(   dispatch: Dispatch<GameAction>;) T* Tj
+( }) T* Tj
+( ) T* Tj
+(@@ -17,7 +19,7 @@ const META: Record<string, { symbol: string; sub: string }> = {) T* Tj
+(   'Super Yams': { symbol: '??', sub: '5 dÈs identiques ? 100 pts' },) T* Tj
+( };) T* Tj
+( ) T* Tj
+(-export function ValidateOrZero\({ playerId, challenge, fixedScore, label, dispatch }: Props\) {) T* Tj
+(+export function ValidateOrZero\({ playerId, challenge, fixedScore, label, playerName, currentValue, dispatch }: Props\) {) T* Tj
+(   const meta = META[label] ?? { symbol: '∑', sub: '' };) T* Tj
+( ) T* Tj
+(   return \() T* Tj
+(@@ -43,11 +45,17 @@ export function ValidateOrZero\({ playerId, challenge, fixedScore, label, dispatc) T* Tj
+(             {meta.symbol}) T* Tj
+(           </span>) T* Tj
+(           <div>) T* Tj
+(+            <p) T* Tj
+(+              className="mb-1 text-[10px] uppercase tracking-[0.18em]") T* Tj
+(+              style={{ fontFamily: 'var\(--font-mono\)', color: 'rgba\(147,197,253,0.7\)' }}) T* Tj
+(+            >) T* Tj
+(+              {playerName} ∑ {label}) T* Tj
+(+            </p>) T* Tj
+(             <p className="text-xl font-semibold leading-tight" style={{ fontFamily: 'var\(--font-display\)', color: 'var\(--color-white\)' }}>) T* Tj
+(               {label}) T* Tj
+(             </p>) T* Tj
+(             <p className="text-xs mt-0.5" style={{ fontFamily: 'var\(--font-mono\)', color: 'var\(--color-white-muted\)' }}>) T* Tj
+(-              {meta.sub} ∑ {fixedScore} pts) T* Tj
+(+              {meta.sub} ∑ {fixedScore} pts{currentValue !== null ? ` ∑ actuel : ${currentValue}` : ''}) T* Tj
+(             </p>) T* Tj
+(           </div>) T* Tj
+(         </div>) T* Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 3 0 R >>
+endobj
+7 0 obj
+<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+endobj
+8 0 obj
+<< /Type /Pages /Kids [5 0 R 6 0 R 7 0 R] /Count 3 >>
+endobj
+9 0 obj
+<< /Type /Catalog /Pages 8 0 R >>
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000015 00000 n 
+0000000083 00000 n 
+0000002933 00000 n 
+0000006611 00000 n 
+0000008871 00000 n 
+0000008997 00000 n 
+0000009123 00000 n 
+0000009249 00000 n 
+0000009318 00000 n 
+trailer
+<< /Size 10 /Root 9 0 R >>
+startxref
+9367
+%%EOF

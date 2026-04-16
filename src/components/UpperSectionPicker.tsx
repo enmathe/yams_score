@@ -7,10 +7,13 @@ interface Props {
   playerId: string;
   challenge: Challenge;
   faceValue: number;
+  challengeLabel: string;
+  playerName: string;
+  currentValue: number | null;
   dispatch: Dispatch<GameAction>;
 }
 
-export function UpperSectionPicker({ playerId, challenge, faceValue, dispatch }: Props) {
+export function UpperSectionPicker({ playerId, challenge, faceValue, challengeLabel, playerName, currentValue, dispatch }: Props) {
   const options = getMultiplesOptions(faceValue);
 
   return (
@@ -31,11 +34,17 @@ export function UpperSectionPicker({ playerId, challenge, faceValue, dispatch }:
         <div className="mb-6 flex items-center gap-4">
           <DieFace value={faceValue as 1|2|3|4|5|6} size={52} color="var(--banana-cream)" />
           <div>
+            <p
+              className="mb-1 text-[10px] uppercase tracking-[0.18em]"
+              style={{ fontFamily: 'var(--font-mono)', color: 'rgba(147,197,253,0.7)' }}
+            >
+              {playerName} · {challengeLabel}
+            </p>
             <p className="text-base font-semibold" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-white)' }}>
               Combien de {faceValue} ?
             </p>
             <p className="text-xs" style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white-muted)' }}>
-              Sélectionner votre score
+              {currentValue === null ? 'Sélectionner votre score' : `Valeur actuelle : ${currentValue}`}
             </p>
           </div>
         </div>

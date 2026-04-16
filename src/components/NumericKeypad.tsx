@@ -4,19 +4,28 @@ import type { GameAction, Challenge } from '../types/game';
 interface Props {
   playerId: string;
   challenge: Challenge;
+  challengeLabel: string;
+  playerName: string;
+  currentValue: number | null;
   dispatch: Dispatch<GameAction>;
 }
 
-export function NumericKeypad({ playerId, challenge, dispatch }: Props) {
-  const [input, setInput] = useState('');
+export function NumericKeypad({ playerId, challenge, challengeLabel, playerName, currentValue, dispatch }: Props) {
+  const [input, setInput] = useState(currentValue === null ? '' : String(currentValue));
+  const initialValue = currentValue === null ? '' : String(currentValue);
+  const hasChanged = input !== initialValue;
 
   const handleDigit = (d: number) => {
-    const next = input + d;
+    const next = input === '0' ? String(d) : input + d;
     if (Number(next) <= 30) setInput(next);
   };
 
   const handleConfirm = () => {
     dispatch({ type: 'SET_SCORE', playerId, challenge, value: input === '' ? 0 : Number(input) });
+  };
+
+  const handleBackspace = () => {
+    setInput(input.slice(0, -1));
   };
 
   const displayVal = input || '—';
@@ -36,6 +45,24 @@ export function NumericKeypad({ playerId, challenge, dispatch }: Props) {
         <div className="mx-auto mb-5 h-[3px] w-10 rounded-full" style={{ background: 'rgba(255,255,255,0.2)' }} />
 
         {/* Display */}
+        <div className="mb-3">
+          <p
+            className="text-[10px] uppercase tracking-[0.18em]"
+            style={{ fontFamily: 'var(--font-mono)', color: 'rgba(147,197,253,0.7)' }}
+          >
+            {playerName} · {challengeLabel}
+          </p>
+          <p
+            className="mt-1 text-xs"
+            style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white-muted)' }}
+          >
+            {currentValue === null
+              ? 'Case vide'
+              : hasChanged
+                ? `Modification en cours : ${displayVal}`
+                : `Valeur actuelle : ${currentValue} · utilisez ⌫ pour corriger`}
+          </p>
+        </div>
         <div
           className="mb-5 rounded-2xl py-4 px-6 flex items-end justify-between"
           style={{ background: 'var(--color-navy)', border: '1px solid rgba(255,255,255,0.2)' }}
@@ -64,7 +91,7 @@ export function NumericKeypad({ playerId, challenge, dispatch }: Props) {
             </button>
           ))}
           <button
-            onClick={() => setInput(input.slice(0, -1))}
+            onClick={handleBackspace}
             className="rounded-2xl py-3.5 text-base active:scale-95 transition-all"
             style={{ background: 'var(--color-navy)', border: '1px solid rgba(255,255,255,0.2)', fontFamily: 'var(--font-mono)', color: 'var(--color-white-muted)' }}
           >

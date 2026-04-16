@@ -6,6 +6,8 @@ interface Props {
   challenge: Challenge;
   fixedScore: number;
   label: string;
+  playerName: string;
+  currentValue: number | null;
   dispatch: Dispatch<GameAction>;
 }
 
@@ -17,7 +19,7 @@ const META: Record<string, { symbol: string; sub: string }> = {
   'Super Yams': { symbol: '★★', sub: '5 dés identiques — 100 pts' },
 };
 
-export function ValidateOrZero({ playerId, challenge, fixedScore, label, dispatch }: Props) {
+export function ValidateOrZero({ playerId, challenge, fixedScore, label, playerName, currentValue, dispatch }: Props) {
   const meta = META[label] ?? { symbol: '·', sub: '' };
 
   return (
@@ -43,11 +45,17 @@ export function ValidateOrZero({ playerId, challenge, fixedScore, label, dispatc
             {meta.symbol}
           </span>
           <div>
+            <p
+              className="mb-1 text-[10px] uppercase tracking-[0.18em]"
+              style={{ fontFamily: 'var(--font-mono)', color: 'rgba(147,197,253,0.7)' }}
+            >
+              {playerName} · {label}
+            </p>
             <p className="text-xl font-semibold leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-white)' }}>
               {label}
             </p>
             <p className="text-xs mt-0.5" style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-white-muted)' }}>
-              {meta.sub} · {fixedScore} pts
+              {meta.sub} · {fixedScore} pts{currentValue !== null ? ` · actuel : ${currentValue}` : ''}
             </p>
           </div>
         </div>
