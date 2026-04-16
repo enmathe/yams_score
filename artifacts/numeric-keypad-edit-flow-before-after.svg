@@ -1,0 +1,63 @@
+<svg width="1440" height="920" viewBox="0 0 1440 920" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="720" y1="0" x2="720" y2="920" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0C1320"/>
+      <stop offset="1" stop-color="#131D2D"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="920" fill="url(#bg)"/>
+  <text x="72" y="84" fill="#F0EDDC" font-family="Arial, sans-serif" font-size="34" font-weight="700">Numeric score edit flow</text>
+  <text x="72" y="118" fill="rgba(240,237,220,0.72)" font-family="Arial, sans-serif" font-size="18">Faithful visual mock: correcting an existing Brelan score during a 3-player game.</text>
+
+  <g transform="translate(72 164)">
+    <rect width="612" height="680" rx="28" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+    <rect width="612" height="56" rx="28" fill="#F4E7B2"/>
+    <text x="28" y="36" fill="#0F1723" font-family="Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="2">BEFORE</text>
+
+    <rect x="40" y="88" width="532" height="552" rx="32" fill="#101827"/>
+    <text x="72" y="136" fill="#F0EDDC" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="6">YAMS</text>
+    <g fill="rgba(255,255,255,0.05)">
+      <rect x="72" y="172" width="468" height="32" rx="10"/>
+      <rect x="72" y="220" width="468" height="32" rx="10"/>
+      <rect x="72" y="268" width="468" height="32" rx="10"/>
+      <rect x="72" y="316" width="468" height="32" rx="10"/>
+      <rect x="72" y="364" width="468" height="32" rx="10"/>
+      <rect x="72" y="412" width="468" height="32" rx="10"/>
+    </g>
+    <rect x="40" y="88" width="532" height="552" rx="32" fill="rgba(0,0,0,0.28)"/>
+    <path d="M40 392C40 374.327 54.3269 360 72 360H540C557.673 360 572 374.327 572 392V640H40V392Z" fill="#1D2A40" stroke="#F4E7B2" stroke-width="1.5"/>
+    <rect x="284" y="378" width="44" height="4" rx="2" fill="rgba(255,255,255,0.22)"/>
+    <text x="72" y="442" fill="rgba(147,197,253,0.72)" font-family="Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="2">JOUEUR 3 · BRELAN</text>
+    <text x="72" y="472" fill="rgba(240,237,220,0.72)" font-family="Arial, sans-serif" font-size="16">Valeur actuelle : 18</text>
+    <rect x="72" y="500" width="468" height="92" rx="22" fill="#162133" stroke="rgba(255,255,255,0.16)"/>
+    <text x="104" y="562" fill="#F0EDDC" font-family="Arial, sans-serif" font-size="62" font-weight="700">—</text>
+    <text x="493" y="556" fill="rgba(240,237,220,0.72)" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="2">PTS</text>
+    <text x="72" y="618" fill="#FFB347" font-family="Arial, sans-serif" font-size="16">Players must mentally carry "18" and re-enter from blank.</text>
+  </g>
+
+  <g transform="translate(756 164)">
+    <rect width="612" height="680" rx="28" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+    <rect width="612" height="56" rx="28" fill="#F4E7B2"/>
+    <text x="28" y="36" fill="#0F1723" font-family="Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="2">AFTER</text>
+
+    <rect x="40" y="88" width="532" height="552" rx="32" fill="#101827"/>
+    <text x="72" y="136" fill="#F0EDDC" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="6">YAMS</text>
+    <g fill="rgba(255,255,255,0.05)">
+      <rect x="72" y="172" width="468" height="32" rx="10"/>
+      <rect x="72" y="220" width="468" height="32" rx="10"/>
+      <rect x="72" y="268" width="468" height="32" rx="10"/>
+      <rect x="72" y="316" width="468" height="32" rx="10"/>
+      <rect x="72" y="364" width="468" height="32" rx="10"/>
+      <rect x="72" y="412" width="468" height="32" rx="10"/>
+    </g>
+    <rect x="40" y="88" width="532" height="552" rx="32" fill="rgba(0,0,0,0.28)"/>
+    <path d="M40 392C40 374.327 54.3269 360 72 360H540C557.673 360 572 374.327 572 392V640H40V392Z" fill="#1D2A40" stroke="#F4E7B2" stroke-width="1.5"/>
+    <rect x="284" y="378" width="44" height="4" rx="2" fill="rgba(255,255,255,0.22)"/>
+    <text x="72" y="442" fill="rgba(147,197,253,0.72)" font-family="Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="2">JOUEUR 3 · BRELAN</text>
+    <text x="72" y="472" fill="rgba(240,237,220,0.72)" font-family="Arial, sans-serif" font-size="16">Valeur actuelle : 18 · touchez un chiffre pour remplacer</text>
+    <rect x="72" y="500" width="468" height="92" rx="22" fill="#162133" stroke="rgba(255,255,255,0.16)"/>
+    <text x="104" y="562" fill="#F0EDDC" font-family="Arial, sans-serif" font-size="62" font-weight="700">18</text>
+    <text x="493" y="556" fill="rgba(240,237,220,0.72)" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="2">PTS</text>
+    <text x="72" y="618" fill="#A8E6A3" font-family="Arial, sans-serif" font-size="16">Current score is loaded, and the first digit cleanly replaces it.</text>
+  </g>
+</svg>
