@@ -51,14 +51,14 @@ export function ScoreCell({ playerId, challenge, value, isActive, dispatch }: Pr
       className="px-2 py-2 text-center border-b cursor-pointer transition-colors"
       style={{
         borderColor: 'rgba(255,255,255,0.08)',
-        background: isActive ? 'rgba(155,93,229,0.12)' : 'transparent',
+        background: isActive ? 'rgba(168,230,163,0.10)' : 'transparent',
       }}
     >
       <span
         className="inline-block rounded border border-dashed w-8 h-6 leading-6 text-xs transition-colors"
         style={{
-          borderColor: isActive ? 'var(--lavender-purple)' : 'rgba(255,255,255,0.1)',
-          color: isActive ? 'var(--lavender-purple)' : 'transparent',
+          borderColor: isActive ? 'var(--aquamarine)' : 'rgba(240,237,220,0.1)',
+          color: isActive ? 'var(--aquamarine)' : 'transparent',
         }}
       >
         ·

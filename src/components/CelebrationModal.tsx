@@ -9,7 +9,7 @@ interface Props {
   dispatch: Dispatch<GameAction>;
 }
 
-const COLORS = ['#fee440', '#f15bb5', '#9b5de5', '#00f5d4', '#00bbf9'];
+const COLORS = ['#FFE566', '#F9A8D4', '#C4B5FD', '#A8E6A3', '#93C5FD', '#FF9B9B', '#FFB347'];
 
 const CONFIG: Record<NonNullable<GameState['celebration']>, { label: string; fire: () => void }> = {
   yams: {

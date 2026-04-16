@@ -1,30 +1,31 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
 
 @theme {
-  --font-display: 'Bodoni Moda', Georgia, serif;
+  --font-display: 'Oswald', 'Barlow Condensed', sans-serif;
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
-  /* Dark purple base */
-  --color-navy-dark: #0c0a1e;
-  --color-navy: #14112b;
-  --color-navy-light: #1f1a3d;
-  --color-blue-gray: #2a2450;
-  --color-white: #ffffff;
-  --color-white-muted: #9b9ec2;
+  /* Bivouac — Forêt nuit */
+  --color-navy-dark: #0F1A0D;   /* Nuit forêt */
+  --color-navy: #141F12;         /* Sous-bois */
+  --color-navy-light: #1D2B1A;  /* Forêt */
+  --color-blue-gray: #253B22;   /* Surface alt */
+  --color-white: #F0EDDC;       /* Parchemin */
+  --color-white-muted: #A8B8A4; /* Corps text */
 
-  /* Vibrant palette */
-  --lavender-purple: #9b5de5;
-  --deep-pink: #f15bb5;
-  --banana-cream: #fee440;
-  --deep-sky-blue: #00bbf9;
-  --aquamarine: #00f5d4;
+  /* Bivouac — Arc-en-ciel (7 jeux) */
+  --lavender-purple: #C4B5FD;  /* Violet — Jeu 06 */
+  --deep-pink: #F9A8D4;         /* Rose   — Jeu 07 */
+  --banana-cream: #FFE566;      /* Jaune  — Jeu 03 */
+  --deep-sky-blue: #93C5FD;    /* Bleu   — Jeu 05 */
+  --aquamarine: #A8E6A3;        /* Vert   — Jeu 04 */
 
-  /* Semantic aliases for existing usage */
-  --color-cream: #fee440;
-  --color-cream-dark: #e6cf2e;
-  --color-accent-gold: #fee440;
-  --color-accent-pool: #00bbf9;
-  --color-accent-green: #00f5d4;
+  /* Semantic aliases */
+  --color-cream: #FFE566;
+  --color-cream-dark: #E6C800;
+  --color-accent-gold: #FFE566;
+  --color-accent-pool: #93C5FD;
+  --color-accent-green: #A8E6A3;
 }
 
 body {
@@ -33,7 +34,7 @@ body {
   min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0c0a1e;
+  background-color: #0F1A0D;
 }
 
 #root {
@@ -82,8 +83,8 @@ body {
 
 /* Glow pulse for bonus */
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(0,245,212,0.4); }
-  50% { box-shadow: 0 0 20px 4px rgba(0,245,212,0.6); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(168,230,163,0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(168,230,163,0.6); }
 }
 
 .bonus-glow {
